@@ -158,7 +158,7 @@ int CSimpleModulus::Decrypt(void* lpDest, void* lpSource, int iSize)
 //
 //
 //
-int CSimpleModulus::EncryptBlock(void* lpTarget, void* lpSource, int nSize)
+void CSimpleModulus::EncryptBlock(void* lpTarget, void* lpSource, int nSize)
 {
 	DWORD dwEncBuffer[ ENCRYPTION_KEY_SIZE ];
 	memset(lpTarget, 0, ENCRYPTED_BLOCK_SIZE);
@@ -209,8 +209,6 @@ int CSimpleModulus::EncryptBlock(void* lpTarget, void* lpSource, int nSize)
 	
 	//
 	nTotalBits = AddBits(lpTarget, nTotalBits, &cCheckSum, 0, 16);
-
-	return nTotalBits;
 }
 
 //

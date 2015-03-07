@@ -113,7 +113,7 @@ protected:
 	//
 	//
 	// 
-	int EncryptBlock(void* lpTarget, void* lpSource, int nSize);
+	void EncryptBlock(void* lpTarget, void* lpSource, int nSize);
 
 	//
 	//
