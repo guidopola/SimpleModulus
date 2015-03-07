@@ -382,12 +382,12 @@ int CSimpleModulus::GetByteOfBit(int nBit)
 
 BOOL CSimpleModulus::SaveAllKey(LPSTR lpszFileName )
 {
-	return SaveKey(lpszFileName, KEYFILE_ONEKEY, TRUE, TRUE, TRUE, TRUE);
+	return SaveKey(lpszFileName, KEYFILE_ALLKEY, TRUE, TRUE, TRUE, TRUE);
 }
 
 BOOL CSimpleModulus::LoadAllKey(char* lpszFileName)
 {
-	return LoadKey(lpszFileName, KEYFILE_ONEKEY, TRUE, TRUE, TRUE, TRUE);
+	return LoadKey(lpszFileName, KEYFILE_ALLKEY, TRUE, TRUE, TRUE, TRUE);
 }
 
 BOOL CSimpleModulus::SaveEncryptionKey(char* lpszFileName)
