@@ -556,7 +556,7 @@ BOOL CSimpleModulus::LoadKeyFromBuffer(BYTE* pbyBuffer, BOOL bLoadModulus, BOOL 
 	{
 		for( int i = 0; i < ENCRYPTION_KEY_SIZE; i++ )
 		{
-			m_dwXORKey[ i ] = pdwSeek[ i ] ^ s_dwSaveLoadXOR[ i ];
+			m_dwModulus[ i ] = pdwSeek[ i ] ^ s_dwSaveLoadXOR[ i ];
 		}
 		pdwSeek += sizeof(DWORD) * ENCRYPTION_KEY_SIZE;
 	}
