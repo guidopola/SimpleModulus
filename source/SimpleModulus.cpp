@@ -158,7 +158,7 @@ int CSimpleModulus::Decrypt(void* lpDest, void* lpSource, int iSize)
 //
 //
 //
-int CSimpleModulus::EncryptBlock(void* lpTarget, void* lpSource, int nSize)
+void CSimpleModulus::EncryptBlock(void* lpTarget, void* lpSource, int nSize)
 {
 	DWORD dwEncBuffer[ ENCRYPTION_KEY_SIZE ];
 	memset(lpTarget, 0, ENCRYPTED_BLOCK_SIZE);
@@ -209,8 +209,6 @@ int CSimpleModulus::EncryptBlock(void* lpTarget, void* lpSource, int nSize)
 	
 	//
 	nTotalBits = AddBits(lpTarget, nTotalBits, &cCheckSum, 0, 16);
-
-	return nTotalBits;
 }
 
 //
@@ -384,12 +382,12 @@ int CSimpleModulus::GetByteOfBit(int nBit)
 
 BOOL CSimpleModulus::SaveAllKey(LPSTR lpszFileName )
 {
-	return SaveKey(lpszFileName, KEYFILE_ONEKEY, TRUE, TRUE, TRUE, TRUE);
+	return SaveKey(lpszFileName, KEYFILE_ALLKEY, TRUE, TRUE, TRUE, TRUE);
 }
 
 BOOL CSimpleModulus::LoadAllKey(char* lpszFileName)
 {
-	return LoadKey(lpszFileName, KEYFILE_ONEKEY, TRUE, TRUE, TRUE, TRUE);
+	return LoadKey(lpszFileName, KEYFILE_ALLKEY, TRUE, TRUE, TRUE, TRUE);
 }
 
 BOOL CSimpleModulus::SaveEncryptionKey(char* lpszFileName)
@@ -558,9 +556,9 @@ BOOL CSimpleModulus::LoadKeyFromBuffer(BYTE* pbyBuffer, BOOL bLoadModulus, BOOL 
 	{
 		for( int i = 0; i < ENCRYPTION_KEY_SIZE; i++ )
 		{
-			m_dwXORKey[ i ] = pdwSeek[ i ] ^ s_dwSaveLoadXOR[ i ];
+			m_dwModulus[ i ] = pdwSeek[ i ] ^ s_dwSaveLoadXOR[ i ];
 		}
-		pdwSeek += sizeof(DWORD) * ENCRYPTION_KEY_SIZE;
+		pdwSeek += ENCRYPTION_KEY_SIZE;
 	}
 
 	if( bLoadEncKey != FALSE )
@@ -569,7 +567,7 @@ BOOL CSimpleModulus::LoadKeyFromBuffer(BYTE* pbyBuffer, BOOL bLoadModulus, BOOL 
 		{
 			m_dwEncryptionKey[ i ] = pdwSeek[ i ] ^ s_dwSaveLoadXOR[ i ];
 		}
-		pdwSeek += sizeof(DWORD) * ENCRYPTION_KEY_SIZE;
+		pdwSeek += ENCRYPTION_KEY_SIZE;
 	}
 
 	if( bLoadDecKey != FALSE )
@@ -578,7 +576,7 @@ BOOL CSimpleModulus::LoadKeyFromBuffer(BYTE* pbyBuffer, BOOL bLoadModulus, BOOL 
 		{
 			m_dwDecryptionKey[ i ] = pdwSeek[ i ] ^ s_dwSaveLoadXOR[ i ];
 		}
-		pdwSeek += sizeof(DWORD) * ENCRYPTION_KEY_SIZE;
+		pdwSeek += ENCRYPTION_KEY_SIZE;
 	}
 
 	if( bLoadXORKey != FALSE )
@@ -587,7 +585,7 @@ BOOL CSimpleModulus::LoadKeyFromBuffer(BYTE* pbyBuffer, BOOL bLoadModulus, BOOL 
 		{
 			m_dwXORKey[ i ] = pdwSeek[ i ] ^ s_dwSaveLoadXOR[ i ];
 		}
-		pdwSeek += sizeof(DWORD) * ENCRYPTION_KEY_SIZE;
+		pdwSeek += ENCRYPTION_KEY_SIZE;
 	}
 
 	return FALSE;
